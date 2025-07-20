@@ -1,14 +1,14 @@
 package com.bm.budget.domain;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@NoArgsConstructor
+@ToString
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "expense")
 @Entity
 public class Expense extends BaseEntity {
 
