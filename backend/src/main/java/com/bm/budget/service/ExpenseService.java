@@ -8,6 +8,8 @@ import com.bm.budget.repository.ExpenseRepository;
 import com.bm.budget.repository.UserRepository;
 import com.bm.budget.service.request.ExpenseCreateRequest;
 import com.bm.budget.service.response.ExpenseResponse;
+import com.bm.budget.util.exception.ErrorCode;
+import com.bm.budget.util.exception.custom.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,8 +25,7 @@ public class ExpenseService {
 
     public ExpenseResponse createExpense(ExpenseCreateRequest request) {
         Category category = categoryRepository.findById(request.getCategoryId())
-                .orElseThrow();
-        // todo: 예외처리 구조 잡기
+                .orElseThrow(() -> new NotFoundException(ErrorCode.CATEGORY_NOT_FOUND));
 
         Long userId = 1L; // todo 추후 삭제
         User user = userRepository.findById(userId)
