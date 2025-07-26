@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
+@Table(name = "categories")
 @Entity
 public class Category extends BaseEntity {
 
@@ -15,7 +16,7 @@ public class Category extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private CategoryType type; // EXPENSE or INCOME
+    private Division division; // EXPENSE or INCOME
 
     private String color;
 
@@ -26,9 +27,9 @@ public class Category extends BaseEntity {
     private User user; // null이면 공용 카테고리
 
     @Builder
-    public Category(String name, CategoryType type, String color, String icon, User user) {
+    public Category(String name, Division division, String color, String icon, User user) {
         this.name = name;
-        this.type = type;
+        this.division = division;
         this.color = color;
         this.icon = icon;
         this.user = user;

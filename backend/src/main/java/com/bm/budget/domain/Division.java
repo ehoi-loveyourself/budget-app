@@ -1,6 +1,6 @@
 package com.bm.budget.domain;
 
-public enum CategoryType {
+public enum Division {
     EXPENSE,
     INCOME
 }
