@@ -2,12 +2,14 @@ package com.bm.budget.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
+@Table(name = "users")
 @Entity
 public class User extends BaseEntity {
     @Column(nullable = false)
