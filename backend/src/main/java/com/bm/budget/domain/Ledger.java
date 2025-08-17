@@ -3,6 +3,7 @@ package com.bm.budget.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @ToString
@@ -25,7 +26,7 @@ public class Ledger extends BaseEntity {
     private Division division; // EXPENSE or INCOME
 
     @Column(nullable = false)
-    private Long amount;
+    private BigDecimal amount;
 
     private String memo;
 
@@ -33,7 +34,7 @@ public class Ledger extends BaseEntity {
     private LocalDate occurredAt;
 
     @Builder
-    public Ledger(User user, Category category, Division division, Long amount, String memo, LocalDate occurredAt) {
+    public Ledger(User user, Category category, Division division, BigDecimal amount, String memo, LocalDate occurredAt) {
         this.user = user;
         this.category = category;
         this.division = division;

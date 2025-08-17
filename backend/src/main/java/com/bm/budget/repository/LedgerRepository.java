@@ -36,4 +36,21 @@ public interface LedgerRepository extends JpaRepository<Ledger, Long> {
             nativeQuery = true
     )
     List<Ledger> readTransactionsInfiniteScroll(Long userId, Long size, Long cursorId, LocalDate cursorDate);
+
+    List<Ledger> findByUserIdAndOccurredAt(long userId, LocalDate d);
+
+    @Query(value = """
+        SELECT
+          DATE(t.occurred_at) AS localDay,
+          COALESCE(SUM(CASE WHEN t.division='INCOME'  THEN t.amount ELSE 0 END), 0) AS incomeSum,
+          COALESCE(SUM(CASE WHEN t.division='EXPENSE' THEN t.amount ELSE 0 END), 0) AS expenseSum
+        FROM ledgers t
+        WHERE t.user_id = :userId
+          AND t.deleted = 0
+          AND t.occurred_at >= :start
+          AND t.occurred_at <  :end
+        GROUP BY localDay
+        ORDER BY localDay
+    """, nativeQuery = true)
+    List<DayAgg> aggregateByDay(Long userId, LocalDate start, LocalDate end);
 }
